@@ -1,0 +1,19 @@
+.search-bar {
+  position: relative;
+  flex: 1 1 260px;
+  max-width: 380px;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  display: flex;
+  color: var(--muted);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.search-input {
+  padding-left: 38px;
+}

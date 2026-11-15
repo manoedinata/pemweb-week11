@@ -1,12 +1,18 @@
 import { useState } from 'react';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
+import SearchBar from '../molecules/SearchBar';
 import ProductList from '../organisms/ProductList';
 import ProductLayout from '../templates/ProductLayout';
 import { initialProducts } from '../../data/products';
 
 function ProductPage() {
   const [products] = useState(initialProducts);
+  const [keyword, setKeyword] = useState('');
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(keyword.trim().toLowerCase()),
+  );
 
   return (
     <ProductLayout
@@ -17,9 +23,15 @@ function ProductPage() {
           <Icon name="plus" /> Tambah Produk
         </Button>
       }
-      footer={`Menampilkan ${products.length} dari ${products.length} produk`}
+      toolbar={
+        <>
+          <SearchBar value={keyword} onChange={setKeyword} placeholder="Cari nama produk..." />
+          <span className="product-count">{products.length} produk</span>
+        </>
+      }
+      footer={`Menampilkan ${filteredProducts.length} dari ${products.length} produk`}
     >
-      <ProductList products={products} onEdit={() => {}} onDelete={() => {}} />
+      <ProductList products={filteredProducts} onEdit={() => {}} onDelete={() => {}} />
     </ProductLayout>
   );
 }
