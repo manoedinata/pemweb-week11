@@ -10,7 +10,7 @@ import { initialProducts } from '../../data/products';
 function ProductPage() {
   const [products, setProducts] = useState(initialProducts);
   const [keyword, setKeyword] = useState('');
-  // modal: null (tertutup) | { type: 'add' }
+  // modal: null (tertutup) | { type: 'add' } | { type: 'edit', product }
   const [modal, setModal] = useState(null);
 
   const filteredProducts = products.filter((product) =>
@@ -24,6 +24,12 @@ function ProductPage() {
   function handleAdd(data) {
     const nextId = products.reduce((max, product) => Math.max(max, product.id), 0) + 1;
     setProducts([...products, { id: nextId, ...data }]);
+    closeModal();
+  }
+
+  function handleEdit(data) {
+    const editedId = modal.product.id;
+    setProducts(products.map((product) => (product.id === editedId ? { ...product, ...data } : product)));
     closeModal();
   }
 
@@ -44,9 +50,21 @@ function ProductPage() {
       }
       footer={`Menampilkan ${filteredProducts.length} dari ${products.length} produk`}
     >
-      <ProductList products={filteredProducts} onEdit={() => {}} onDelete={() => {}} />
+      <ProductList
+        products={filteredProducts}
+        onEdit={(product) => setModal({ type: 'edit', product })}
+        onDelete={() => {}}
+      />
 
       {modal?.type === 'add' && <ProductFormModal onSubmit={handleAdd} onClose={closeModal} />}
+      {modal?.type === 'edit' && (
+        <ProductFormModal
+          key={modal.product.id}
+          product={modal.product}
+          onSubmit={handleEdit}
+          onClose={closeModal}
+        />
+      )}
     </ProductLayout>
   );
 }
