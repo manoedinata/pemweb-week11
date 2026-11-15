@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../atoms/Button';
 import Icon from '../atoms/Icon';
 import SearchBar from '../molecules/SearchBar';
+import DeleteProductModal from '../organisms/DeleteProductModal';
 import ProductFormModal from '../organisms/ProductFormModal';
 import ProductList from '../organisms/ProductList';
 import ProductLayout from '../templates/ProductLayout';
@@ -10,7 +11,7 @@ import { initialProducts } from '../../data/products';
 function ProductPage() {
   const [products, setProducts] = useState(initialProducts);
   const [keyword, setKeyword] = useState('');
-  // modal: null (tertutup) | { type: 'add' } | { type: 'edit', product }
+  // modal: null (tertutup) | { type: 'add' } | { type: 'edit', product } | { type: 'delete', product }
   const [modal, setModal] = useState(null);
 
   const filteredProducts = products.filter((product) =>
@@ -30,6 +31,11 @@ function ProductPage() {
   function handleEdit(data) {
     const editedId = modal.product.id;
     setProducts(products.map((product) => (product.id === editedId ? { ...product, ...data } : product)));
+    closeModal();
+  }
+
+  function handleDelete(deletedProduct) {
+    setProducts(products.filter((product) => product.id !== deletedProduct.id));
     closeModal();
   }
 
@@ -53,7 +59,7 @@ function ProductPage() {
       <ProductList
         products={filteredProducts}
         onEdit={(product) => setModal({ type: 'edit', product })}
-        onDelete={() => {}}
+        onDelete={(product) => setModal({ type: 'delete', product })}
       />
 
       {modal?.type === 'add' && <ProductFormModal onSubmit={handleAdd} onClose={closeModal} />}
@@ -64,6 +70,9 @@ function ProductPage() {
           onSubmit={handleEdit}
           onClose={closeModal}
         />
+      )}
+      {modal?.type === 'delete' && (
+        <DeleteProductModal product={modal.product} onConfirm={handleDelete} onClose={closeModal} />
       )}
     </ProductLayout>
   );
