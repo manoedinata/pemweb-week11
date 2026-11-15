@@ -1,0 +1,31 @@
+.delete-modal {
+  text-align: center;
+}
+
+.delete-icon {
+  display: inline-flex;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.delete-title {
+  margin-top: 14px;
+  padding-right: 0;
+}
+
+.delete-preview {
+  margin-top: 18px;
+  padding: 14px 16px;
+  text-align: left;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.delete-preview-name {
+  margin-top: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
