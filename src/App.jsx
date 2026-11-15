@@ -1,5 +1,7 @@
+import ProductPage from './components/pages/ProductPage';
+
 function App() {
-  return <h1>Manajemen Produk</h1>;
+  return <ProductPage />;
 }
 
 export default App;

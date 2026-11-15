@@ -1,0 +1,37 @@
+.layout {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 16px;
+}
+
+.layout-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.layout-title {
+  font-size: 30px;
+}
+
+.layout-subtitle {
+  margin-top: 6px;
+  color: var(--muted);
+}
+
+.layout-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 24px 0 20px;
+}
+
+.layout-footer {
+  margin-top: 24px;
+  font-size: 14px;
+  color: var(--muted);
+}
