@@ -30,6 +30,11 @@
   margin: 24px 0 20px;
 }
 
+.product-count {
+  font-size: 14px;
+  color: var(--muted);
+}
+
 .layout-footer {
   margin-top: 24px;
   font-size: 14px;
